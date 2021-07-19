@@ -285,3 +285,7 @@ shape = SubResource( 11 )
 position = Vector2( 0.472469, -9.53674e-07 )
 frames = SubResource( 16 )
 frame = 2
+
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+current = true
+zoom = Vector2( 0.4, 0.4 )

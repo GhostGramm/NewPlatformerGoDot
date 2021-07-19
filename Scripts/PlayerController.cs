@@ -3,9 +3,9 @@ using System;
 
 public class PlayerController : KinematicBody2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+    private int speed = 100;
+    private int jumpSpeed = 2000;
+    private int gravity = 3000;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -19,12 +19,20 @@ public class PlayerController : KinematicBody2D
         Vector2 direction = new Vector2();
         if(Input.IsActionPressed("ui_left"))
         {
-            direction.x -= 50;
+            direction.x -= speed;
         }
         if(Input.IsActionPressed("ui_right"))
         {
-            direction.x += 50;
+            direction.x += speed;
         }
+        if(Input.IsActionJustPressed("ui_up"))
+        {
+            if(IsOnFloor())
+            {
+                direction.y -= jumpSpeed;
+            }
+        }
+        direction.y += gravity * delta;
         MoveAndSlide(direction, Vector2.Up);
     }
 }
