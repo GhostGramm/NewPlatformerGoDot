@@ -23,7 +23,7 @@ public class PlayerController : Node
         }
         if(Input.IsActionJustPressed("ui_right"))
         {
-            direction.x -= 500;
+            direction.x -= 5000;
         }
     
     }
