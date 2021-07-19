@@ -1,0 +1,8 @@
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\bin\Debug\NewPlatformerGame.dll
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\bin\Debug\NewPlatformerGame.pdb
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\obj\Debug\NewPlatformerGame.csprojAssemblyReference.cache
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\obj\Debug\NewPlatformerGame.AssemblyInfoInputs.cache
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\obj\Debug\NewPlatformerGame.AssemblyInfo.cs
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\obj\Debug\NewPlatformerGame.csproj.CoreCompileInputs.cache
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\obj\Debug\NewPlatformerGame.dll
+C:\Users\GHOST\Documents\NewPlatformer\.mono\temp\obj\Debug\NewPlatformerGame.pdb

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PlayerController : Node
+public class PlayerController : KinematicBody2D
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -17,14 +17,14 @@ public class PlayerController : Node
     public override void _Process(float delta)
     {
         Vector2 direction = new Vector2();
-        if(Input.IsActionJustPressed("ui_left"))
+        if(Input.IsActionPressed("ui_left"))
+        {
+            direction.x -= 50;
+        }
+        if(Input.IsActionPressed("ui_right"))
         {
             direction.x += 50;
         }
-        if(Input.IsActionJustPressed("ui_right"))
-        {
-            direction.x -= 5000;
-        }
-    
+        MoveAndSlide(direction, Vector2.Up);
     }
 }

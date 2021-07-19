@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj": {}
+    "C:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj": {}
   },
   "projects": {
-    "c:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj": {
+    "C:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj",
+        "projectUniqueName": "C:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj",
         "projectName": "NewPlatformerGame",
-        "projectPath": "c:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj",
+        "projectPath": "C:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj",
         "packagesPath": "C:\\Users\\GHOST\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\GHOST\\Documents\\NewPlatformer\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\GHOST\\Documents\\NewPlatformer\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

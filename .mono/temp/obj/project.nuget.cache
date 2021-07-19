@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jl0tbU9FtaT4U8g1O3ftAziD8uPFlxgM21PpdTdQ2KcPf1tnFtOLU36uirY5Uu9W4avPpCYZ9sXv2fF4ZS2Abw==",
+  "dgSpecHash": "1+Clxwcce8qOCKAkWkqWUXnwvD69QqyS045iEwR2vSUWBb4Z1AwT5TeyxjmnIZDILfL+RP8KqSL87Qh++SNZsQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj",
+  "projectFilePath": "C:\\Users\\GHOST\\Documents\\NewPlatformer\\NewPlatformerGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GHOST\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
     "C:\\Users\\GHOST\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.0\\microsoft.netframework.referenceassemblies.net472.1.0.0.nupkg.sha512"
