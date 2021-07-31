@@ -16,6 +16,8 @@ public class PlayerController : KinematicBody2D
     private bool isRayCasting = false;
     private float RayCastTimer = .4f;
     private float RayCastTimerReset = .4f;
+    private bool canClimb = false;
+    private int climbSpeed = 100;
     Vector2 direction = new Vector2();
     
 
@@ -37,18 +39,21 @@ public class PlayerController : KinematicBody2D
             CharacterMovement(delta);
         }
         
-        if(Input.IsActionJustPressed("jump"))
+
+        if(IsOnFloor())
         {
-            if(IsOnFloor())
+            if(Input.IsActionJustPressed("jump"))
             {
                 direction.y = -jumpSpeed;
-                // player can only jump when its on the floor
             }
+            canClimb = true;
         }
 
         ProcessRayCast(delta);
 
         ProcessDash();
+
+        ProcessClimb(delta);
         
         if(isDashing)
         {
@@ -77,6 +82,27 @@ public class PlayerController : KinematicBody2D
         MoveAndSlide(direction, Vector2.Up);
     }
 
+    public void ProcessClimb(float delta)
+    {
+        if(Input.IsActionPressed("climb") && (GetNode<RayCast2D>("WallClimbRayCast_Left").IsColliding() || GetNode<RayCast2D>("WallClimbRayCast_Right").IsColliding()))
+        {
+            if(canClimb)
+            {
+                if(Input.IsActionPressed("ui_up"))
+                {
+                    direction.y =- climbSpeed;
+                }
+                else if(Input.IsActionPressed("ui_down"))
+                {
+                    direction.y = climbSpeed;
+                }
+                else{
+                    direction = new Vector2(0,0); 
+                }
+                
+            }
+        }
+    }
     public void CharacterMovement(float delta)
     {
         int control = 0;
