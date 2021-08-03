@@ -22,4 +22,9 @@ public class PlayerShadow : Node2D
     {
         GetNode<Sprite>("Sprite").FlipH = value; //sets the value of FlipH
     }
+
+    public void AnimDestroy()
+    {
+        QueueFree();
+    }
 }

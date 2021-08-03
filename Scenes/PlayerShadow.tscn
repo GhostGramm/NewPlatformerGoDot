@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://platform_metroidvania asset pack v1.01/herochar sprites(new)/herochar_jump_up_anim_strip_3.png" type="Texture" id=1]
-[ext_resource path="res://PlayerShadow.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/PlayerShadow.cs" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade Out"
@@ -21,6 +21,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "AnimDestroy"
+} ]
 }
 
 [node name="PlayerShadow" type="Node2D"]
