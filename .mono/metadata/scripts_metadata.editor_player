@@ -1,1 +1,1 @@
-{"res://Scripts/PlayerController.cs":{"modified_time":"1627903270","class":{"namespace":"","class_name":"PlayerController","nested":false}}}
+{"res://PlayerShadow.cs":{"modified_time":"1627992464","class":{"namespace":"","class_name":"PlayerShadow","nested":false}},"res://Scripts/PlayerController.cs":{"modified_time":"1627992577","class":{"namespace":"","class_name":"PlayerController","nested":false}}}

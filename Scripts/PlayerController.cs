@@ -21,6 +21,9 @@ public class PlayerController : KinematicBody2D
     private float climbTimer = 5f;
     private float climbTimerReset = 5f;
     private int climbSpeed = 100;
+    private bool IsInAir = false;
+    [Export]
+    public PackedScene PlayerShadowInstance;
     Vector2 direction = new Vector2();
 
 
@@ -48,6 +51,12 @@ public class PlayerController : KinematicBody2D
             if (Input.IsActionJustPressed("jump"))
             {
                 direction.y = -jumpSpeed;
+                GetNode<AnimatedSprite>("AnimatedSprite").Play("jump");
+                IsInAir = true;
+            }
+            else
+            {
+                IsInAir = false;
             }
             canClimb = true;
         }
@@ -60,7 +69,12 @@ public class PlayerController : KinematicBody2D
 
         if (isDashing)
         {
+            
             dashTimer -= delta;     //counts down the dashTimer from delta
+            PlayerShadow shadow = PlayerShadowInstance.Instance() as PlayerShadow;  //spawns the PlayerShadow scene in the Player scene
+            Owner.AddChild(shadow);
+            shadow.SetFlip(GetNode<AnimatedSprite>("AnimatedSprite").FlipH);    //sets the FlipH of the shadow to be same with the player
+            shadow.GlobalPosition = this.GlobalPosition;  //gives the position of the player to the shadow
             if (dashTimer <= 0)
             {
                 isDashing = false;
@@ -79,16 +93,6 @@ public class PlayerController : KinematicBody2D
             {
                 canClimb = false;
                 climbTimer = climbTimerReset;
-            }
-        }
-
-        if (isRayCasting)
-        {
-            RayCastTimer -= delta;
-            if (RayCastTimer <= 0)
-            {
-                isRayCasting = false;
-                RayCastTimer = RayCastTimerReset;
             }
         }
 
@@ -133,18 +137,30 @@ public class PlayerController : KinematicBody2D
         if (Input.IsActionPressed("ui_left"))
         {
             control -= 1;
+            GetNode<AnimatedSprite>("AnimatedSprite").FlipH = true;
         }
         if (Input.IsActionPressed("ui_right"))
         {
             control += 1;
+            GetNode<AnimatedSprite>("AnimatedSprite").FlipH = false;
         }
         if (control != 0)
         {
             direction.x = Mathf.Lerp(direction.x, control * speed, acceleration);  //interpolates between the direction and acceleration for smooth movement
+            if (!IsInAir)
+            {
+                GetNode<AnimatedSprite>("AnimatedSprite").Play("run");
+            }
+
         }
         else
         {
             direction.x = Mathf.Lerp(direction.x, 0, friction);
+            if (!IsInAir)
+            {
+                GetNode<AnimatedSprite>("AnimatedSprite").Play("idle");
+            }
+
         }
     }
 
@@ -199,15 +215,26 @@ public class PlayerController : KinematicBody2D
             {
                 direction.y = -jumpSpeed;
                 direction.x = RayCastSpeed;
+                GetNode<AnimatedSprite>("AnimatedSprite").FlipH = false;
                 isRayCasting = true;
             }
             else if (Input.IsActionJustPressed("jump") && GetNode<RayCast2D>("RayCast2D_Right").IsColliding())
             {
                 direction.y = -jumpSpeed;
                 direction.x = -RayCastSpeed;
+                GetNode<AnimatedSprite>("AnimatedSprite").FlipH = true;
                 isRayCasting = true;
             }
         }
 
+        if (isRayCasting)
+        {
+            RayCastTimer -= delta;
+            if (RayCastTimer <= 0)
+            {
+                isRayCasting = false;
+                RayCastTimer = RayCastTimerReset;
+            }
+        }
     }
 }
