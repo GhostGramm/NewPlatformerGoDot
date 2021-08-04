@@ -3,6 +3,8 @@ using System;
 
 public class PlayerController : KinematicBody2D
 {
+    [Signal]
+    public delegate void RespawnPlayer();
     private int speed = 100;
     private int jumpSpeed = 200;
     private int gravity = 600;
@@ -22,6 +24,10 @@ public class PlayerController : KinematicBody2D
     private float climbTimerReset = 5f;
     private int climbSpeed = 100;
     private bool IsInAir = false;
+    private bool isTakingDamage = false;
+    private float DamageTimer = 0.5f;
+    private float DamageTimerReset = 0.5f;
+    public int health = 3;
     private AnimatedSprite animatedSprite;
     [Export]
     public PackedScene PlayerShadowInstance;
@@ -41,7 +47,7 @@ public class PlayerController : KinematicBody2D
     public override void _Process(float delta)
     {
 
-        if (!isDashing && !isRayCasting)
+        if (!isDashing && !isRayCasting && !isTakingDamage)
         {
             CharacterMovement(delta);
         }
@@ -64,13 +70,17 @@ public class PlayerController : KinematicBody2D
 
         ProcessRayCast(delta);
 
-        ProcessDash();
+        if (!isTakingDamage)
+        {
+            ProcessDash();
+        }
+
 
         ProcessClimb(delta);
 
         if (isDashing)
         {
-            
+
             dashTimer -= delta;     //counts down the dashTimer from delta
             PlayerShadow shadow = PlayerShadowInstance.Instance() as PlayerShadow;  //spawns the PlayerShadow scene in the Player scene
             Owner.AddChild(shadow);
@@ -97,7 +107,17 @@ public class PlayerController : KinematicBody2D
             }
         }
 
-        
+        if (isTakingDamage)
+        {
+            DamageTimer -= delta;
+            if (DamageTimer <= 0)
+            {
+                isTakingDamage = false;
+                DamageTimer = DamageTimerReset;
+            }
+        }
+
+
 
         MoveAndSlide(direction, Vector2.Up);
     }
@@ -137,35 +157,39 @@ public class PlayerController : KinematicBody2D
     }
     public void CharacterMovement(float delta)
     {
-        int control = 0;
-        if (Input.IsActionPressed("ui_left"))
+        if (health > 0)
         {
-            control -= 1;
-            animatedSprite.FlipH = true;
-        }
-        if (Input.IsActionPressed("ui_right"))
-        {
-            control += 1;
-            animatedSprite.FlipH = false;
-        }
-        if (control != 0)
-        {
-            direction.x = Mathf.Lerp(direction.x, control * speed, acceleration);  //interpolates between the direction and acceleration for smooth movement
-            if (!IsInAir)
+            int control = 0;
+            if (Input.IsActionPressed("ui_left"))
             {
-                animatedSprite.Play("run");
+                control -= 1;
+                animatedSprite.FlipH = true;
             }
-
-        }
-        else
-        {
-            direction.x = Mathf.Lerp(direction.x, 0, friction);
-            if (!IsInAir)
+            if (Input.IsActionPressed("ui_right"))
             {
-                animatedSprite.Play("idle");
+                control += 1;
+                animatedSprite.FlipH = false;
             }
+            if (control != 0)
+            {
+                direction.x = Mathf.Lerp(direction.x, control * speed, acceleration);  //interpolates between the direction and acceleration for smooth movement
+                if (!IsInAir)
+                {
+                    animatedSprite.Play("run");
+                }
 
+            }
+            else
+            {
+                direction.x = Mathf.Lerp(direction.x, 0, friction);
+                if (!IsInAir)
+                {
+                    animatedSprite.Play("idle");
+                }
+
+            }
         }
+
     }
 
     public void ProcessDash()
@@ -241,4 +265,52 @@ public class PlayerController : KinematicBody2D
             }
         }
     }
+
+    public void TakeDamage()
+    {
+        isTakingDamage = true;
+        animatedSprite.Play("TakeDamage");
+        health -= 1;
+        if (!animatedSprite.FlipH && health > 0)
+        {
+            direction = MoveAndSlide(new Vector2(-200, -100), Vector2.Up);
+        }
+        else if (animatedSprite.FlipH && health > 0)
+        {
+            direction = MoveAndSlide(new Vector2(200, -100), Vector2.Up);
+        }
+
+        GD.Print("Player has taken damage");
+        if (health <= 0)
+        {
+            direction = new Vector2(0, 0);
+            animatedSprite.Play("Death");
+            // Death();
+            GD.Print("Player is dead");
+        }
+    }
+
+    public void _on_AnimatedSprite_animation_finished()
+    {
+        if(animatedSprite.Animation == "Death")
+        {
+            GD.Print("Death animation finished");
+            animatedSprite.Stop();
+            Hide();
+            EmitSignal(nameof(RespawnPlayer));
+        }
+    }
+
+    public void Respawn()
+    {
+        health = 3;
+        Show();
+    }
+
+    public void Death()
+    {
+        QueueFree();
+    }
+
+
 }
