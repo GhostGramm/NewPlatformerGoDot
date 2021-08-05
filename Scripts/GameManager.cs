@@ -17,12 +17,12 @@ public class GameManager : Node2D
 
     public void RespawnPlayer()
     {
-        GD.Print(RespawnPoint.GlobalPosition);
-        GD.Print("game manager called");
+        // GD.Print(RespawnPoint.GlobalPosition);
+        // GD.Print("game manager called");
+        // player.Position = RespawnPoint.Position;    //assign the position of the Respawn point to the player
+        // GD.Print(RespawnPoint.Position);
+        // GD.Print(player.Position);
         PlayerController player =  GetNode<PlayerController>("Player");
-        player.Position = RespawnPoint.Position;    //assign the position of the Respawn point to the player
-        GD.Print(RespawnPoint.Position);
-        GD.Print(player.Position);
         player.Respawn();   //call the player respawn function
     }
 

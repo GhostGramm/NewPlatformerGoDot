@@ -307,9 +307,10 @@ public class PlayerController : KinematicBody2D
 
     public void Respawn()
     {
-        GD.Print("Player has respawned");
-        health = 3;
-        Show();
+        GetTree().ReloadCurrentScene();
+        // GD.Print("Player has respawned");
+        // health = 3;
+        // Show();
     }
 
     public void Death()
