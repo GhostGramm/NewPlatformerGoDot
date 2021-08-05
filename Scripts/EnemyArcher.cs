@@ -16,12 +16,12 @@ public class EnemyArcher : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        animatedSprite =  GetNode<AnimatedSprite>("AnimatedSprite");
+        animatedSprite =  GetNode<AnimatedSprite>("AnimatedSprite");    //assigning the child animated sprite
     }
 
     private void _on_Range_body_entered(object body)
     {
-        if(body is PlayerController)
+        if(body is PlayerController)       //setting object body as player
         {
             GD.Print("Player in Sight" + body);
             Active = true;
@@ -48,7 +48,7 @@ public class EnemyArcher : Node2D
             ableToShoot = false;
         }
 
-        if(ableToShoot)
+        if(ableToShoot)     //shooting timer
         {
             shootTimer -= delta;
             if(shootTimer <= 0)
