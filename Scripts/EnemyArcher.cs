@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public class EnemyArcher : Node2D
@@ -23,6 +24,7 @@ public class EnemyArcher : Node2D
     {
         if(body is PlayerController)       //setting object body as player
         {
+            player = body as PlayerController;
             GD.Print("Player in Sight" + body);
             Active = true;
         }
@@ -30,8 +32,11 @@ public class EnemyArcher : Node2D
 
     private void _on_Range_body_exited(object body)
     {
-        GD.Print("Lost Sight of Player" + body);
-        Active = false;
+        if(body is PlayerController)
+        {
+            GD.Print("Lost Sight of Player" + body);
+            Active = false;
+        }
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,8 +44,22 @@ public class EnemyArcher : Node2D
     {
         if(Active)
         {
-            ableToShoot = true;
-            animatedSprite.Play("attack");
+            var spaceState = GetWorld2d().DirectSpaceState;
+            Dictionary result = spaceState.IntersectRay(this.Position,player.Position, new Godot.Collections.Array{this});
+            if(result != null)
+            {
+                if(result.Contains("collider"))
+                {
+                    if(result["collider"] == player)
+                    {
+                        ableToShoot = true;
+                    }
+                    else
+                    {
+                        animatedSprite.Play("idle");
+                    }
+                }
+            }
         }
         else
         {
@@ -53,6 +72,7 @@ public class EnemyArcher : Node2D
             shootTimer -= delta;
             if(shootTimer <= 0)
             {
+                animatedSprite.Play("attack");
                 GD.Print("shooting");
                 ableToShoot = false;
                 shootTimer = shootTimerReset;

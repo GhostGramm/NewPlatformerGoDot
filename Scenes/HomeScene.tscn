@@ -366,7 +366,6 @@ position = Vector2( -1.88775, 4.01144 )
 scale = Vector2( 0.616551, 0.491194 )
 frames = SubResource( 30 )
 animation = "idle"
-frame = 1
 playing = true
 flip_h = true
 
@@ -380,5 +379,6 @@ shape = SubResource( 31 )
 [node name="spawnProjectile" type="Position2D" parent="EnemyArcher"]
 position = Vector2( -19.1034, 0.749146 )
 
+[connection signal="RespawnPlayer" from="Player" to="." method="_on_Player_RespawnPlayer"]
 [connection signal="body_entered" from="EnemyArcher/Range" to="EnemyArcher" method="_on_Range_body_entered"]
 [connection signal="body_exited" from="EnemyArcher/Range" to="EnemyArcher" method="_on_Range_body_exited"]

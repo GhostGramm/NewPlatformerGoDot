@@ -55,17 +55,21 @@ public class PlayerController : KinematicBody2D
 
         if (IsOnFloor())
         {
-            if (Input.IsActionJustPressed("jump"))
+            if (health > 0)
             {
-                animatedSprite.Play("jump");
-                direction.y = -jumpSpeed;
-                IsInAir = true;
+                if (Input.IsActionJustPressed("jump"))
+                {
+                    animatedSprite.Play("jump");
+                    direction.y = -jumpSpeed;
+                    IsInAir = true;
+                }
+                else
+                {
+                    IsInAir = false;
+                }
+                canClimb = true;
             }
-            else
-            {
-                IsInAir = false;
-            }
-            canClimb = true;
+
         }
 
         ProcessRayCast(delta);
@@ -292,7 +296,7 @@ public class PlayerController : KinematicBody2D
 
     public void _on_AnimatedSprite_animation_finished()
     {
-        if(animatedSprite.Animation == "Death")
+        if (animatedSprite.Animation == "Death")
         {
             GD.Print("Death animation finished");
             animatedSprite.Stop();
@@ -303,6 +307,7 @@ public class PlayerController : KinematicBody2D
 
     public void Respawn()
     {
+        GD.Print("Player has respawned");
         health = 3;
         Show();
     }
