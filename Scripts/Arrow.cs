@@ -5,7 +5,7 @@ public class Arrow : Node2D
 {
    
     private float speed = 100f;
-    private float lifeSpan =3f;
+    private float lifeSpan =10f;
     public override void _Ready()
     {
         
@@ -20,10 +20,19 @@ public class Arrow : Node2D
     public void moveArrow(float delta)
     {
         GD.Print("arrow movinig");
-        Position += Transform.x * delta * speed;
+        Position -= Transform.x * delta * speed;
         lifeSpan -= delta;
         if(lifeSpan <= 0)
         {
+            destroyArrow();
+        }
+    }
+
+    public void _on_Area2D_body_entered(object body)
+    {
+        if(body is PlayerController)
+        {
+            GD.Print("Arrow touched the player");
             destroyArrow();
         }
     }

@@ -10,6 +10,9 @@ public class EnemyArcher : Node2D
     private bool ableToShoot = false;
     private float shootTimer = 1f;
     private float shootTimerReset = 1f;
+    private Position2D spawnPoint;
+    [Export]
+    public PackedScene ArrowInstance;
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
@@ -17,6 +20,7 @@ public class EnemyArcher : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        spawnPoint = GetNode<Position2D>("spawnProjectile");
         animatedSprite =  GetNode<AnimatedSprite>("AnimatedSprite");    //assigning the child animated sprite
     }
 
@@ -72,6 +76,9 @@ public class EnemyArcher : Node2D
             shootTimer -= delta;
             if(shootTimer <= 0)
             {
+                Arrow arrow = ArrowInstance.Instance() as Arrow;
+                Owner.AddChild(arrow);
+                arrow.Position = spawnPoint.Position;
                 animatedSprite.Play("attack");
                 GD.Print("shooting");
                 ableToShoot = false;

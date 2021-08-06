@@ -371,6 +371,7 @@ position = Vector2( -1.88775, 4.01144 )
 scale = Vector2( 0.616551, 0.491194 )
 frames = SubResource( 30 )
 animation = "idle"
+frame = 1
 playing = true
 flip_h = true
 
@@ -385,7 +386,7 @@ shape = SubResource( 31 )
 position = Vector2( -19.1034, 0.749146 )
 
 [node name="Arrow" type="Node2D" parent="."]
-position = Vector2( 55.9684, 406.451 )
+position = Vector2( 181.976, 438.543 )
 scale = Vector2( 0.64, 0.6 )
 script = ExtResource( 8 )
 __meta__ = {
@@ -408,3 +409,4 @@ __meta__ = {
 [connection signal="RespawnPlayer" from="Player" to="." method="_on_Player_RespawnPlayer"]
 [connection signal="body_entered" from="EnemyArcher/Range" to="EnemyArcher" method="_on_Range_body_entered"]
 [connection signal="body_exited" from="EnemyArcher/Range" to="EnemyArcher" method="_on_Range_body_exited"]
+[connection signal="body_entered" from="Arrow/Area2D" to="Arrow" method="_on_Area2D_body_entered"]
