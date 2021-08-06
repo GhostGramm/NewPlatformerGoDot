@@ -6,7 +6,7 @@ public class EnemyArcher : Node2D
 {
     AnimatedSprite animatedSprite;
     private PlayerController player;
-    private bool Active = false;
+    public bool Active = false;
     private bool ableToShoot = false;
     private float shootTimer = 1f;
     private float shootTimerReset = 1f;
@@ -21,12 +21,12 @@ public class EnemyArcher : Node2D
     public override void _Ready()
     {
         spawnPoint = GetNode<Position2D>("spawnProjectile");
-        animatedSprite =  GetNode<AnimatedSprite>("AnimatedSprite");    //assigning the child animated sprite
+        animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");    //assigning the child animated sprite
     }
 
     private void _on_Range_body_entered(object body)
     {
-        if(body is PlayerController)       //setting object body as player
+        if (body is PlayerController)       //setting object body as player
         {
             player = body as PlayerController;
             GD.Print("Player in Sight" + body);
@@ -36,25 +36,25 @@ public class EnemyArcher : Node2D
 
     private void _on_Range_body_exited(object body)
     {
-        if(body is PlayerController)
+        if (body is PlayerController)
         {
             GD.Print("Lost Sight of Player" + body);
             Active = false;
         }
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(Active)
+        if (Active)
         {
             var spaceState = GetWorld2d().DirectSpaceState;
-            Dictionary result = spaceState.IntersectRay(this.Position,player.Position, new Godot.Collections.Array{this});
-            if(result != null)
+            Dictionary result = spaceState.IntersectRay(this.Position, player.Position, new Godot.Collections.Array { this });
+            if (result != null)
             {
-                if(result.Contains("collider"))
+                if (result.Contains("collider"))
                 {
-                    if(result["collider"] == player)
+                    if (result["collider"] == player)
                     {
                         ableToShoot = true;
                     }
@@ -71,19 +71,25 @@ public class EnemyArcher : Node2D
             ableToShoot = false;
         }
 
-        if(ableToShoot)     //shooting timer
+        if (ableToShoot)     //shooting timer
         {
             shootTimer -= delta;
-            if(shootTimer <= 0)
+            if (shootTimer <= 0)
             {
-                Arrow arrow = ArrowInstance.Instance() as Arrow;
-                Owner.AddChild(arrow);
-                arrow.GlobalPosition = spawnPoint.GlobalPosition;
                 animatedSprite.Play("attack");
-                GD.Print("shooting");
                 ableToShoot = false;
                 shootTimer = shootTimerReset;
             }
+        }
+    }
+
+    public void _on_AnimatedSprite_animation_finished()
+    {
+        if (animatedSprite.Animation == "attack")
+        {
+            Arrow arrow = ArrowInstance.Instance() as Arrow;
+            Owner.AddChild(arrow);
+            arrow.GlobalPosition = spawnPoint.GlobalPosition;
         }
     }
 }

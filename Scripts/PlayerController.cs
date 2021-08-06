@@ -27,10 +27,13 @@ public class PlayerController : KinematicBody2D
     private bool isTakingDamage = false;
     private float DamageTimer = 0.5f;
     private float DamageTimerReset = 0.5f;
+    public bool playerDead = false;
     public int health = 3;
     private AnimatedSprite animatedSprite;
     [Export]
     public PackedScene PlayerShadowInstance;
+    [Export]
+    public PackedScene EnemyArcherInstance;
     Vector2 direction = new Vector2();
 
 
@@ -270,7 +273,7 @@ public class PlayerController : KinematicBody2D
         }
     }
 
-    public void TakeDamage()
+    public void spikeDamage()
     {
         isTakingDamage = true;
         animatedSprite.Play("TakeDamage");
@@ -285,13 +288,16 @@ public class PlayerController : KinematicBody2D
         }
 
         GD.Print("Player has taken damage");
-        if (health <= 0)
-        {
-            direction = new Vector2(0, 0);
-            animatedSprite.Play("Death");
-            // Death();
-            GD.Print("Player is dead");
-        }
+        PlayerDead();
+        
+    }
+
+    public void arrowDamage()
+    {
+        isTakingDamage = true;
+        animatedSprite.Play("TakeDamage");
+        health -= 1;
+        PlayerDead();
     }
 
     public void _on_AnimatedSprite_animation_finished()
@@ -313,9 +319,20 @@ public class PlayerController : KinematicBody2D
         // Show();
     }
 
-    public void Death()
+    public void PlayerDead()
     {
-        QueueFree();
+        if (health <= 0)
+        {
+            playerDead = true;
+            direction = new Vector2(0, 0);
+            animatedSprite.Play("Death");
+
+            // Death();
+            GD.Print("Player is dead");
+        }
+        else{
+            playerDead = false;
+        }
     }
 
 

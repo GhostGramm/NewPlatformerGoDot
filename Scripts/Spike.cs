@@ -25,7 +25,7 @@ public class Spike : Node2D
         if(body is PlayerController)
         {
             PlayerController player = body as PlayerController;
-            player.TakeDamage();
+            player.spikeDamage();
         }
         
     }
