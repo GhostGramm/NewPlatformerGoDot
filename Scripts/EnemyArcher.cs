@@ -78,7 +78,7 @@ public class EnemyArcher : Node2D
             {
                 Arrow arrow = ArrowInstance.Instance() as Arrow;
                 Owner.AddChild(arrow);
-                arrow.Position = spawnPoint.Position;
+                arrow.GlobalPosition = spawnPoint.GlobalPosition;
                 animatedSprite.Play("attack");
                 GD.Print("shooting");
                 ableToShoot = false;
