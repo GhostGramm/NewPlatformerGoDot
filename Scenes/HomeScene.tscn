@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://platform_metroidvania asset pack v1.01/Final/Idle and running.png" type="Texture" id=1]
 [ext_resource path="res://platform_metroidvania asset pack v1.01/Final/Normal Attack.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Scenes/Spike.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/EnemyArcher.cs" type="Script" id=5]
 [ext_resource path="res://platform_metroidvania asset pack v1.01/tiles and background_foreground/tileset.png" type="Texture" id=6]
+[ext_resource path="res://icon.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Arrow.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=13]
 [ext_resource path="res://Scenes/Position2D.tscn" type="PackedScene" id=14]
 
@@ -251,71 +253,71 @@ region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 192, 64, 64 )
+region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
-region = Rect2( 64, 192, 64, 64 )
+region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
-region = Rect2( 128, 192, 64, 64 )
+region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 192, 64, 64 )
+region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
-region = Rect2( 256, 192, 64, 64 )
+region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
-region = Rect2( 320, 192, 64, 64 )
+region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 64, 64 )
+region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 64, 64 )
+region = Rect2( 448, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 128, 0, 64, 64 )
+region = Rect2( 0, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 64, 64 )
+region = Rect2( 64, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 64, 64 )
+region = Rect2( 128, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 2 )
-region = Rect2( 320, 0, 64, 64 )
+region = Rect2( 0, 192, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 64, 64 )
+region = Rect2( 64, 192, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 2 )
-region = Rect2( 448, 0, 64, 64 )
+region = Rect2( 128, 192, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 64, 64, 64 )
+region = Rect2( 192, 192, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 64, 64, 64, 64 )
+region = Rect2( 256, 192, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
-region = Rect2( 128, 64, 64, 64 )
+region = Rect2( 320, 192, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=30]
 animations = [ {
@@ -324,19 +326,22 @@ animations = [ {
 "name": "idle",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
-"loop": true,
-"name": "loopAttack",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "attack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
+"loop": true,
+"name": "loopAttack",
 "speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=31]
 radius = 92.1716
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 18.3416, 1.02002 )
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource( 13 )
@@ -366,6 +371,7 @@ position = Vector2( -1.88775, 4.01144 )
 scale = Vector2( 0.616551, 0.491194 )
 frames = SubResource( 30 )
 animation = "idle"
+frame = 1
 playing = true
 flip_h = true
 
@@ -378,6 +384,27 @@ shape = SubResource( 31 )
 
 [node name="spawnProjectile" type="Position2D" parent="EnemyArcher"]
 position = Vector2( -19.1034, 0.749146 )
+
+[node name="Arrow" type="Node2D" parent="."]
+position = Vector2( 55.9684, 406.451 )
+scale = Vector2( 0.64, 0.6 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Arrow"]
+position = Vector2( 0.066741, -0.0488577 )
+scale = Vector2( 0.572007, 0.0328561 )
+texture = ExtResource( 7 )
+
+[node name="Area2D" type="Area2D" parent="Arrow"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arrow/Area2D"]
+shape = SubResource( 32 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [connection signal="RespawnPlayer" from="Player" to="." method="_on_Player_RespawnPlayer"]
 [connection signal="body_entered" from="EnemyArcher/Range" to="EnemyArcher" method="_on_Range_body_entered"]
